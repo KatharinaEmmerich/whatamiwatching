@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      args '-p 3000:3000'
-      image 'myjenkins-blueocean'
-    }
-
-  }
+  agent any
   stages {
     stage('Build') {
       steps {
