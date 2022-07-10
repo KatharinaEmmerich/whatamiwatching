@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''cd ./backend
-docker compose up --force-recreate --build -d'''
+        sh 'npm install'
       }
     }
 
