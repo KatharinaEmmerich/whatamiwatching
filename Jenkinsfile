@@ -1,25 +1,30 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                git 'https://github.com/niklasdiehm/whatamiwatching.git'
-                sh './mvnw clean compile'
-                // bat '.\\mvnw clean compile'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-                // bat '.\\mvnw test'
-            }
-
-            post {
-                always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                }
-            }
-        }
+  agent {
+    docker {
+      image 'node:6-alpine'
+      args '-p 3000:3000'
     }
+
+  }
+  stages {
+    stage('Build') {
+      steps {
+        git 'https://github.com/niklasdiehm/whatamiwatching.git'
+        sh './mvnw clean compile'
+      }
+    }
+
+    stage('Test') {
+      post {
+        always {
+          junit '**/target/surefire-reports/TEST-*.xml'
+        }
+
+      }
+      steps {
+        sh './mvnw test'
+      }
+    }
+
+  }
 }
