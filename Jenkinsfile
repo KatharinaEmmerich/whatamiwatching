@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build'
+        sh './mvnw -Dmaven.test.failure.ignore=true install'
       }
     }
 
