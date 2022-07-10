@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker compose up --force-recreate --build -d'
+        sh 'docker compose up --build -d'
       }
     }
 
